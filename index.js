@@ -33,7 +33,7 @@ const server= http.createServer((req, res)=>{
     else if(pathName=== '/api'){
         res.writeHead(200, {'Content-type' : 'application/json'});
         res.end(data);
-        return
+        return 
     }
 
     else{
