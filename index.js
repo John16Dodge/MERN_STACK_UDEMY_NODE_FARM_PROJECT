@@ -18,11 +18,11 @@ const replaceTemplate= (temp, product)=>{
     output= output.replace(/{%DESCRIPTION%}/g, product.description);
     output= output.replace(/{%ID%}/g, product.id);
 
-
     if(!product.organic) output= output.replace(/{%NOT_ORGANIC%}/g, 'not-organic');
 
     return output;
 }
+
 
 const tempOverview = fs.readFileSync(
   `${__dirname}/complete-node-bootcamp/1-node-farm/starter/templates/template-overview.html`,
@@ -56,9 +56,7 @@ const server= http.createServer((req, res)=>{
 
     //OVERVIEW PAGE
     if(pathName === '/' || pathName === '/overview' ){
-        res.writeHead(200, {'Content-type':'text/html', });
-
-
+        res.writeHead(200, {'Content-type':'text/html'});
         const cardsHtml= dataObj.map(el => replaceTemplate(tempCard, el)).join('');
         //console.log(cardsHtml);
         const output= tempOverview.replace('{%PRODUCT_CARDS%}',cardsHtml);
@@ -66,9 +64,14 @@ const server= http.createServer((req, res)=>{
         return
     }
 
+
     //PRODUCT PAGE
     else if(pathName === '/product'){
-        res.end('<h1>THIS IS THE HOME PAGE !!!</h1>');
+        res.writeHead(200, {'Content-type':'text/html'});
+        const productHtml= dataObj.map(el => replaceTemplate(tempProduct, el)).join('');
+        //console.log(cardsHtml);
+        const output= tempProduct.replace('{%PRODUCT_CARDS%}',productHtml);
+        res.end(output);
         return
     }
 
