@@ -2,6 +2,7 @@ const http = require('http');
 const url = require('url');  
 const fs = require('fs');
 
+
 /*
 const tempOverview= fs.readFileSync(`${__dirname}/complete-node-bootcamp/1-node-farm/starter/templates/template/template-overview.html`, "utf-8",);
 const tempProduct= fs.readFileSync(`${__dirname}/complete-node-bootcamp/1-node-farm/starter/templates/template-product.html`, "utf-8",);
@@ -49,13 +50,15 @@ const dataObj = JSON.parse(data);
 
 //SERVER
 const server= http.createServer((req, res)=>{
-    console.log(req.url);
-    const pathName=  req.url;
+
+    const {query, pathname}= url.parse(req.url, true);
+
 
 //ROUTING 
 
+
     //OVERVIEW PAGE
-    if(pathName === '/' || pathName === '/overview' ){
+    if(pathname === '/' || pathname === '/overview' ){
         res.writeHead(200, {'Content-type':'text/html'});
         const cardsHtml= dataObj.map(el => replaceTemplate(tempCard, el)).join('');
         //console.log(cardsHtml);
@@ -66,17 +69,16 @@ const server= http.createServer((req, res)=>{
 
 
     //PRODUCT PAGE
-    else if(pathName === '/product'){
+    else if(pathname === '/product'){
         res.writeHead(200, {'Content-type':'text/html'});
-        const productHtml= dataObj.map(el => replaceTemplate(tempProduct, el)).join('');
-        //console.log(cardsHtml);
-        const output= tempProduct.replace('{%PRODUCT_CARDS%}',productHtml);
+        const product = dataObj[query.id];
+        const output= replaceTemplate(tempProduct, product);
         res.end(output);
-        return
+        
     }
 
     //API PAGE
-    else if(pathName=== '/api'){
+    else if(pathname=== '/api'){
         res.writeHead(200, {'Content-type' : 'application/json'});
         res.end(data);
         return 
