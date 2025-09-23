@@ -1,14 +1,17 @@
+//IMPORTING
+
 const http = require('http');  
 const url = require('url');  
 const fs = require('fs');
 
+const replaceTemplate= require('./complete-node-bootcamp/1-node-farm/final/modules/replaceTemplate')
 
 /*
 const tempOverview= fs.readFileSync(`${__dirname}/complete-node-bootcamp/1-node-farm/starter/templates/template/template-overview.html`, "utf-8",);
 const tempProduct= fs.readFileSync(`${__dirname}/complete-node-bootcamp/1-node-farm/starter/templates/template-product.html`, "utf-8",);
 const tempCard= fs.readFileSync(`${__dirname}/complete-node-bootcamp/1-node-farm/starter/templates/template-card.html`, "utf-8",);
 */
-
+/*
 const replaceTemplate= (temp, product)=>{
     let output= temp.replace(/{%PRODUCTNAME%}/g, product.productName);
     output= output.replace(/{%IMAGE%}/g, product.image);
@@ -23,7 +26,7 @@ const replaceTemplate= (temp, product)=>{
 
     return output;
 }
-
+*/
 
 const tempOverview = fs.readFileSync(
   `${__dirname}/complete-node-bootcamp/1-node-farm/starter/templates/template-overview.html`,
@@ -101,7 +104,7 @@ server.listen(8000, '127.0.0.1', ()=>{
     console.log("Server is listening at 8000");
 });
 
-//API 
+
 
 
 
